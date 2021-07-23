@@ -31,7 +31,6 @@ export const LoginScreen = () => {
         </div>
         <div className="col-md-6">
           <h3>Registro</h3>
-          lorem
           <div className="form-group">
             <input
               type="password"

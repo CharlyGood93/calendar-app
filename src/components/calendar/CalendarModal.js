@@ -7,7 +7,7 @@ import moment from 'moment';
 import Swal from 'sweetalert2'
 
 import { uiCloseModal } from '../actions/ui';
-import { eventAddNew, eventClearActiveEvent } from '../actions/events';
+import { eventAddNew, eventClearActiveEvent, eventUpdated } from '../actions/events';
 
 import './CalendarModal.scss';
 
@@ -51,6 +51,8 @@ export const CalendarModal = () => {
   useEffect(() => {
     if (activeEvent) {
       setFormValues(activeEvent);
+    } else {
+      setFormValues(initEvent);
     }
   }, [activeEvent, setFormValues]);
 
@@ -95,15 +97,18 @@ export const CalendarModal = () => {
       return setTitleValid(false);
     }
 
-    // TODO: realizar grabación en DB
-    dispatch(eventAddNew({
-      ...formValues,
-      id: new Date().getTime(),
-      user: {
-        _id: '123',
-        name: 'Carlos',
-      },
-    }));
+    if (activeEvent) {
+      dispatch(eventUpdated(formValues));
+    } else {
+      dispatch(eventAddNew({
+        ...formValues,
+        id: new Date().getTime(),
+        user: {
+          _id: '123',
+          name: 'Carlos',
+        },
+      }));
+    }
 
     setTitleValid(true);
     closeModal();
@@ -117,7 +122,7 @@ export const CalendarModal = () => {
       closeTimeoutMS={200}
       className="modal"
       overlayClassName="modal-background">
-      <h1> Nuevo evento </h1>
+      <h1> { (activeEvent) ? 'Editar evento' : 'Nuevo evento' } </h1>
       <hr />
       <form className="container" onSubmit={handleSubmitForm}>
 

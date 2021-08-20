@@ -21,9 +21,16 @@ body {
 .fab {
   bottom: 20px;
   border-radius: 100%;
-  font-size: 30px;
-  height: 10vh;
+  font-size: 20px;
+  height: 7vh;
   position: fixed;
   right: 20px;
-  width: 10vh;
+  width: 7vh;
+}
+
+.fab-danger {
+  bottom: 20px;
+  left: 20px;
+  padding: 10px;
+  position: fixed;
 }
